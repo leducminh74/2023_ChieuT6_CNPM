@@ -44,6 +44,9 @@ public class AccountService {
 
 	public Account getAccountActivatedByUserName(String username) {
 		Status activated = getStatusByName("Activated");
+		if(activated == null) {
+			activated = new Status(0, "Activated");
+		}
 		return accountRepository.findOneByUsernameAndStatus(username, activated);
 	}
 
@@ -54,6 +57,9 @@ public class AccountService {
 
 	public Account getAccountNotActivatedByEmailAndPassword(String email, String password) {
 		Status notActivated = getStatusByName("Not Activated");
+		if(notActivated == null) {
+			notActivated = new Status(0, "Not Activated");
+		}
 		return accountRepository.findByEmailAndPasswordAndStatus(email, password, notActivated);
 	}
 
@@ -66,8 +72,11 @@ public class AccountService {
 		if (a == null) {
 			return null;
 		}
-		Status Activated = getStatusByName("Activated");
-		a.setStatus(Activated);
+		Status activated = getStatusByName("Activated");
+		if(activated == null) {
+			activated = new Status(0, "Activated");
+		}
+		a.setStatus(activated);
 		saveAccount(a);
 		return a;
 
