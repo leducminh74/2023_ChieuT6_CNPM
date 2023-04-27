@@ -10,6 +10,8 @@
 Nếu có lỗi driver class name
 <br>
 Thêm "spring.datasource.driver-class-name=com.mysql.jdbc.Driver" vào file application.properties
+<br>
 -> insert data vào csdl (file datav1.sql)
+<br>
 Tắt và chạy lại file WebThiTracNghiemApplication.java
 
