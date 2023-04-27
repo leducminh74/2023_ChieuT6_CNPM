@@ -98,6 +98,8 @@ public class AccountController {
 		if (a == null) {
 			m.addAttribute("account", new Account());
 			return "register";
+		} else if (a.getIsAdmin().getRoleId() == 1) {
+			return "redirect:/admin/home";
 		}
 
 		return "redirect:/index";
@@ -197,6 +199,8 @@ public class AccountController {
 		Account a = (Account) session.getAttribute("acc");
 		if (a == null) {
 			return "forgotpassword";
+		} else if (a.getIsAdmin().getRoleId() == 1) {
+			return "redirect:/admin/home";
 		}
 		return "redirect:/index";
 	}
@@ -255,7 +259,7 @@ public class AccountController {
 		boolean checkCode = verifiCode.equals(verifiCodeOld);
 		if (checkCode) {
 			String newPass = RandomNumber.randomAlphaNumeric();
-			acc.setPassword(newPass);
+			acc.setPassword(accountService.hashPassword(newPass));
 			accountService.saveAccount(acc);
 			String content = "Your password is " + newPass;
 			Mail.sendMail(email, subject, content);

@@ -15,6 +15,8 @@
 	Hello ${sessionScope.acc.getUsername()}
 	<br>
 		<a href="<c:url value='/logout' />">Thoát</a>
+		<br>
+		<a href="<c:url value='/change-password' />">Đổi mật khẩu</a>
 	</c:if>
 
 </body>
