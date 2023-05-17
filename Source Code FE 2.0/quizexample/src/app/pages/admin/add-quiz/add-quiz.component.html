@@ -1,0 +1,87 @@
+<mat-card>
+  <h1>Thêm đề mới</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <form (ngSubmit)="addQuiz()">
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Tên đề thi</mat-label>
+            <input
+              [(ngModel)]="quizData.title"
+              type="text"
+              name="title"
+              placeholder="Enter here.."
+              matInput
+              required
+            >
+          </mat-form-field>
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Mô tả</mat-label>
+            <textarea
+              [(ngModel)]="quizData.description"
+              name="description"
+              placeholder="Enter here.."
+              matInput
+              rows="5"
+              required
+            ></textarea>
+          </mat-form-field>
+
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field class="w100" appearance="fill">
+                <mat-label>Điểm tối đa</mat-label>
+                <input
+                  [(ngModel)]="quizData.maxMarks"
+                  type="text"
+                  name="maxMarks"
+                  placeholder="Enter here.."
+                  matInput
+                  required
+
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field class="w100" appearance="fill">
+                <mat-label>Số câu hỏi</mat-label>
+                <input
+                  [(ngModel)]="quizData.numberOfQuestions"
+                  type="text"
+                  name="numberOfQuestions"
+                  placeholder="Enter here.."
+                  matInput
+                  required
+
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-slide-toggle
+            name="active"
+            [(ngModel)]="quizData.active"
+            class="mt15" [checked]="false"
+            color="primary">
+          Công khai đề
+          </mat-slide-toggle>
+          <br>
+
+          <mat-form-field appearance="fill" class="mt15 w100">
+            <mat-label>Môn</mat-label>
+            <mat-select required name="category"  [(ngModel)]="quizData.category.id">
+              <mat-option *ngFor="let c of categories" [value]="c.id">
+                {{c.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="container text-center">
+            <button type="submit" mat-raised-button color="primary">Thêm</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</mat-card>

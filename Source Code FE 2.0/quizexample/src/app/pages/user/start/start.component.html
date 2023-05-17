@@ -1,0 +1,122 @@
+<div class="bootstrap-wrapper" *ngIf="!isSubmit">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-card style="margin-top: 70px">
+          <mat-card-content>
+            <h2><b>Chú ý</b></h2>
+            <ul>
+              <li>Không tải lại trang. Nếu không bạn sẽ phải làm lại từ đầu với các câu hỏi khác</li>
+              <li>Không chuyển tab</li>
+              <li>Không thu nhỏ cửa sổ</li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <div class="col-md-8">
+        <ng-container  *ngIf="questions">
+          <h1 class="mt20 text-center">Đề thi <b>{{questions[0].quiz.title}}</b></h1>
+        </ng-container>
+        <mat-card *ngFor="let q of questions;let i = index" class="mt15">
+          <mat-card-content>
+            <p>
+              <b>Câu {{i + 1}}.  </b> <span [innerHTML]="q.content"></span>
+            </p>
+            <mat-divider></mat-divider>
+            <div class="row mt15">
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  [value]="q.option1"
+                  [name]="i+''"
+                  [(ngModel)]="q.givenAnswer"
+                >{{q.option1}}
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  [value]="q.option2"
+                  [name]="i+''"
+                  [(ngModel)]="q.givenAnswer"
+                >{{q.option2}}
+              </div>
+            </div>
+            <div class="row mt15">
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  [value]="q.option3"
+                  [name]="i+''"
+                  [(ngModel)]="q.givenAnswer"
+                >{{q.option3}}
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  [value]="q.option4"
+                  [name]="i+''"
+                  [(ngModel)]="q.givenAnswer"
+                >{{q.option4}}
+              </div>
+            </div>
+          </mat-card-content>
+
+        </mat-card>
+        <div class="container text-center mt20 mb20">
+          <button (click)="submitQuiz()" mat-raised-button color="primary">Nộp bài</button>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <mat-card style="margin-top: 70px">
+          <mat-card-header>
+            <mat-card-title>
+              Progress
+            </mat-card-title>
+            <mat-card-subtitle>
+              Bài thi sẽ tự động gửi khi hết thời gian
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <h2 class="text-center">{{getFormattedTimer()}}</h2>
+            <mat-spinner
+              mode="determinate"
+              [value]="(timer /(this.totalQuestion * 2 * 60)) * 100"
+              color="accent"
+              style="margin: auto"
+            ></mat-spinner>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!--show result-->
+
+<div class="bootstrap-wrapper mt20" *ngIf="isSubmit">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title> Kết quả thi</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-center">
+          <h1>Tổng điểm: <b>{{marksGot}}/{{maxMarks}}</b></h1>
+          <h1>Số lượng câu đã làm: <b>{{attempted}}/{{totalQuestion}}</b></h1>
+          <h1>Số câu trả lời chính xác: <b>{{correctAnswer}}/{{totalQuestion}}</b></h1>
+        </mat-card-content>
+        <mat-card-actions class="text-center">
+          <button mat-raised-button color="accent" routerLink="/user-dashboard/0">Trang chủ</button>
+          <button (click)="printPage()" mat-raised-button color="primary">In kết quả</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

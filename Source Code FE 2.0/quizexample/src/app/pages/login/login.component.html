@@ -1,0 +1,53 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row" style="margin-top: 20px">
+      <div class="col-md-6 offset-md-3">
+        <mat-card>
+
+        <div class="container text-center">
+          <img style="width: 100px" src="assets/image/signup-logo.png" alt="">
+        </div>
+        <h1 class="text-center">Đăng nhập</h1>
+
+        <form (ngSubmit)="formSubmit()">
+          <mat-form-field class="full-width"  appearance="outline">
+            <mat-label>Tài khoản</mat-label>
+            <input
+              name="username"
+              [(ngModel)]="loginData.username"
+              matInput placeholder="Enter here..."
+              required
+            >
+          </mat-form-field>
+
+          <mat-form-field class="full-width"  appearance="outline">
+            <mat-label>Mật khẩu</mat-label>
+            <input
+              name="password"
+              [(ngModel)]="loginData.password"
+              type="password" matInput placeholder="Enter here..."
+              required
+            >
+          </mat-form-field>
+
+
+          <div class="container text-center">
+            <button type="submit" style="margin-left: 20px" mat-raised-button color="primary">Đăng Nhập</button>
+          </div>
+
+        </form>
+
+          <mat-card-actions class="mt15">
+            <mat-card-subtitle class="ml10">
+              Bạn chưa có tài khoản?
+              <button routerLink="/signup" mat-button color="primary">Đăng kí ngay</button>
+            </mat-card-subtitle>
+          </mat-card-actions>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+

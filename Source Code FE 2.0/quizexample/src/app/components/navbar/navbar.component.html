@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <button routerLink="" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu_book</mat-icon>
+    <span>Box Study</span>
+  </button>
+
+  <span class="example-spacer"></span>
+  <button *ngIf="!isLoggedIn" routerLink="/login" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>login</mat-icon>
+  </button>
+
+  <button routerLink="admin/profile" style="margin-right: 20px" *ngIf="isLoggedIn"  mat-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    Xin chào {{user.username}}
+  </button>
+  <button *ngIf="isLoggedIn" (click)="logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>logout</mat-icon>
+  </button>
+
+
+
+</mat-toolbar>
+
