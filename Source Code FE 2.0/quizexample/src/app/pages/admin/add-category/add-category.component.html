@@ -1,0 +1,42 @@
+<mat-card>
+  <h1>Thêm môn thi mới</h1>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <form (ngSubmit)="formSubmit()">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Tiêu đề</mat-label>
+              <input
+                type="text"
+                name="title"
+                matInput
+                placeholder="Enter here.."
+                required
+                [(ngModel)]="category.title"
+              >
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Mô tả</mat-label>
+              <textarea
+                name="description"
+                matInput
+                placeholder="Enter here.."
+                rows="15"
+                required
+                [(ngModel)]="category.description"
+              >
+              </textarea>
+            </mat-form-field>
+
+            <div class="container text-center">
+              <button style="margin-top: 20px" type="submit" mat-raised-button color="primary">Thêm</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

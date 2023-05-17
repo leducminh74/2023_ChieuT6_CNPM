@@ -1,0 +1,44 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card *ngIf="quiz">
+          <mat-card-header>
+            <mat-card-title>
+              Vui lòng đọc kỹ hướng dẫn bên dưới
+            </mat-card-title>
+            <mat-card-subtitle>Bước cuối cùng trước khi thi</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content class="ml20">
+            <h1>Đề thi <b>{{quiz.title}}</b></h1>
+            <p>{{quiz.description}}</p>
+          </mat-card-content>
+          <mat-divider></mat-divider>
+          <br>
+          <h1 class="ml20">Lưu ý quan trọng</h1>
+          <ul>
+            <li>Bài thi này chỉ dành cho mục đích trau dồi kiến thức</li>
+            <li>Bài thi gồm <b>{{quiz.numberOfQuestions}} câu hỏi</b></li>
+            <li>Bạn phải hoàn thành bài thi trong vòng <b>{{quiz.numberOfQuestions * 2}} phút</b></li>
+            <li>Mỗi câu hỏi chính xác mang lại <b>{{quiz.maxMarks/quiz.numberOfQuestions}} điểm</b>. Trả lời không chính xác sẽ không được cộng điểm</li>
+          </ul>
+          <mat-divider></mat-divider>
+          <br>
+          <h1 class="ml20">Lưu ý khi thi</h1>
+          <ul>
+            <li>Ấn vào nút <b>'Bắt đầu thi'</b> để bắt đầu thi</li>
+            <li>Thời gian sẽ được tính vào thời điểm bạn bắt đầu ấn vào nút 'Bắt đầu thi'</li>
+            <li>Bạn sẽ không thể tiếp tục nếu sảy ra bất kì lỗi nào từ hệ thống</li>
+            <li>Cuộn chuột xuống để xem các câu hỏi tiếp theo</li>
+            <li>Ấn vào nút 'Nộp bài' để hoàn thành bài thi</li>
+          </ul>
+          <mat-card-actions class="text-center">
+            <button (click)="startQuiz()" mat-raised-button color="primary">Bắt Đầu Thi</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
