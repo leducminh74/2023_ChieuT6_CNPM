@@ -2,16 +2,19 @@
 
 ## How to run code?
 <br>
--> Import code to IDE (Eclipse)
+-> Import BE code to IDE (Eclipse)
 <br>
--> src/main/resources/application.properties -> Bật "spring.jpa.hibernate.ddl-auto=create-drop" Tắt "spring.jpa.hibernate.ddl-auto=none" (Ctrl + /) Để JPA tự động tạo table. Sau lần chạy đầu tiên Tắt "spring.jpa.hibernate.ddl-auto=create-drop" Bật "spring.jpa.hibernate.ddl-auto=none" để tránh tạo tại bảng gây mất hết dữ liệu.
+-> Import FE code to IDE (Webstorm)
+
 <br>
--> Run file WebThiTracNghiemApplication.java
+-> Trong Esclipse Run file WebThiTracNghiemApplication.java
 Nếu có lỗi driver class name
 <br>
 Thêm "spring.datasource.driver-class-name=com.mysql.jdbc.Driver" vào file application.properties
 <br>
--> Insert data vào csdl (file datav1.sql)
+-> Insert data vào csdl (file web-thi-trac-nghiem.sql)
 <br>
-Tắt Server và chạy lại file WebThiTracNghiemApplication.java
+Ở Webstorm run project -> vào trình duyệt gõ đường dẫn http://localhost:4200 
+<br>
+<h2><b>Nếu lỗi liên hệ sóp để xem giải quyết!!!</b></h2>
 
