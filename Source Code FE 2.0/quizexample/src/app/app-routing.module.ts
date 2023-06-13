@@ -21,6 +21,12 @@ import {LoadQuizComponent} from "./pages/user/load-quiz/load-quiz.component";
 import {InstructionsComponent} from "./pages/user/instructions/instructions.component";
 import {StartComponent} from "./pages/user/start/start.component";
 import {LoginGuard} from "./services/login.guard";
+import {ProfileUserComponent} from "./pages/user/profile-user/profile-user.component";
+import {UpdateProfileUserComponent} from "./pages/user/update-profile-user/update-profile-user.component";
+import {UpdateProfileAdminComponent} from "./pages/admin/update-profile-admin/update-profile-admin.component";
+import {TestHistoryComponent} from "./pages/user/test-history/test-history.component";
+import {TestRankingComponent} from "./pages/user/test-ranking/test-ranking.component";
+import {UserManagementComponent} from "./pages/admin/user-management/user-management.component";
 
 const routes: Routes = [
   {
@@ -52,6 +58,9 @@ const routes: Routes = [
         path:'profile',
         component: ProfileComponent
       },{
+        path: 'profile/update',
+        component: UpdateProfileAdminComponent
+      },{
         path:'categories',
         component:ViewCategoriesComponent
       },{
@@ -75,6 +84,9 @@ const routes: Routes = [
       },{
         path:'quiz/:quizId/:title/question/:qid',
         component:EditQuestionComponent
+      },{
+        path: 'user-management',
+        component: UserManagementComponent
       }
     ],
   },
@@ -89,14 +101,27 @@ const routes: Routes = [
       },{
         path: 'instructions/:qid',
         component:InstructionsComponent
+      },{
+        path: 'profile/user',
+        component: ProfileUserComponent,
       },
+      {
+        path: 'profile/update-profile',
+        component:UpdateProfileUserComponent
+      },{
+        path: 'test/history',
+        component: TestHistoryComponent
+      },{
+        path: 'test/rank',
+        component: TestRankingComponent
+      }
     ]
   },
   {
-    path: 'start/:qid',
+    path: 'start/:qid/:tid',
     component: StartComponent,
     canActivate:[NormalGuard],
-  }
+  },
 ];
 
 @NgModule({

@@ -14,7 +14,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.loginService.getUser();
 
+  }
 
+  toString(listRole: [{authority:''}]){
+    let result = ''
+    for (let role of listRole) {
+      result += role.authority + ', '
+    }
+    return result.substring(0,result.length - 2)
   }
 
 }

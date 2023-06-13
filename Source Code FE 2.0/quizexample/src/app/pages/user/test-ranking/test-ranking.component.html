@@ -1,0 +1,85 @@
+<mat-card >
+  <mat-card-header>
+    <mat-card-title>
+      Bảng xếp hạng
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container">
+        <div class="select-search mt20">
+          <mat-form-field >
+            <mat-label>Chọn đề thi</mat-label>
+            <mat-select (selectionChange)="selectedQuiz($event)">
+              <mat-option *ngFor="let quiz of listQuiz" [value]="quiz.qId">
+                {{quiz.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field >
+            <mat-label>Tìm kiếm</mat-label>
+            <input #input matInput (keyup)="applyFilter($event)" placeholder="Ex. Toán" >
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="quizId && listTestByQuiz.length > 0" class="content">
+          <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="ranking">
+              <th mat-header-cell *matHeaderCellDef > Xếp hạng </th>
+              <td mat-cell *matCellDef="let element, let t = index" [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''"><p class="design-ranking"><mat-icon style="margin-right: auto;" *ngIf="element.user.id == user.id">arrow_right_alt</mat-icon><span class="rank-number">{{t+1}}</span></p></td>
+            </ng-container>
+
+            <ng-container matColumnDef="user">
+              <th mat-header-cell *matHeaderCellDef > Thành viên </th>
+              <td mat-cell *matCellDef="let element, let t = index" [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''"> {{element.user.firstName}} {{element.user.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="marks">
+              <th mat-header-cell *matHeaderCellDef > Điểm số </th>
+              <td mat-cell  [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''" *matCellDef="let element, let t = index" [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''"> {{element.marks}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="examTime">
+              <th mat-header-cell *matHeaderCellDef > Thời gian làm bài </th>
+              <td mat-cell *matCellDef="let element, let t = index" [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''"> {{formattedTimer(element.examTime)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+              <td mat-cell *matCellDef="let element, let t = index" [bgColor]="t == 0?'#FEE101': t == 1 ? '#A7A7AD':t == 2 ?'#A77044':''"> {{element.end ? 'Hoàn thành':'Chưa hoàn thành'}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                         showFirstLastButtons
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+
+        <div *ngIf="!quizId" class="no-content text-center mt20">
+          <h2><b>Vui lòng chọn đề thi để xem xếp hạng</b></h2>
+        </div>
+
+        <div *ngIf="quizId && listTestByQuiz.length == 0 " class="no-content text-center mt20">
+          <h2><b>Chưa có ai thi bài thi này. Vui lòng trở lại sau!!</b></h2>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+

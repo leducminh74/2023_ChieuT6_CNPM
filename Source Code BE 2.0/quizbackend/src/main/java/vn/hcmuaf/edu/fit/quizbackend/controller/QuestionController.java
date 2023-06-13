@@ -1,7 +1,6 @@
 package vn.hcmuaf.edu.fit.quizbackend.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.hcmuaf.edu.fit.quizbackend.model.exam.Category;
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Question;
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Quiz;
 import vn.hcmuaf.edu.fit.quizbackend.service.QuestionService;
 import vn.hcmuaf.edu.fit.quizbackend.service.QuizService;
-import vn.hcmuaf.edu.fit.quizbackend.service.impl.QuizServiceImpl;
 
 @RestController
 @RequestMapping("/question")
@@ -64,9 +61,6 @@ public class QuestionController {
 
 		}
 		
-		for (Question question : list) {
-			question.setAnswer("");
-		}
 		Collections.shuffle(list);
 		return ResponseEntity.ok(list);
 	}

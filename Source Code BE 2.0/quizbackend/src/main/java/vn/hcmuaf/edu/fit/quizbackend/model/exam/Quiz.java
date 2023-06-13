@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import vn.hcmuaf.edu.fit.quizbackend.model.Test;
+
 @Entity
 public class Quiz {
 
@@ -40,6 +42,8 @@ public class Quiz {
 	@JsonIgnore
 	private Set<Question> questions = new HashSet<>();
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
+	private Set<Test> tests;
 	
 	public Quiz() {
 

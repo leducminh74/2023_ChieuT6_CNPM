@@ -1,6 +1,7 @@
 package vn.hcmuaf.edu.fit.quizbackend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Category;
+import vn.hcmuaf.edu.fit.quizbackend.model.exam.Question;
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Quiz;
+import vn.hcmuaf.edu.fit.quizbackend.service.QuestionService;
 import vn.hcmuaf.edu.fit.quizbackend.service.QuizService;
 
 @RestController
@@ -25,6 +28,9 @@ public class QuizController {
 
 	@Autowired
 	private QuizService quizService;
+	
+	@Autowired
+	private QuestionService questionService;
 
 	@PostMapping("/")
 	public ResponseEntity<Quiz> add(@RequestBody Quiz quiz) {
@@ -70,6 +76,29 @@ public class QuizController {
 		Category category = new Category();
 		category.setId(cid);
 		return this.quizService.getActiveQuizzesOfCategory(category);
+	}
+	
+	@PostMapping("/eval-quiz")
+	public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions){
+		double marksGot = 0;
+		int correctAnswer = 0;
+		int attempted = 0;	
+		double maxMark = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks());
+		for (Question question : questions) {
+			
+			Question question2 = this.questionService.get(question.getQuesId());
+			if(question2.getAnswer().equals(question.getGivenAnswer())) {
+				correctAnswer++;
+				
+				double marksSingle = Math.ceil(Double.parseDouble(questions.get(0).getQuiz().getMaxMarks())/(questions.size()));
+				marksGot += marksSingle;
+			}
+			if(question.getGivenAnswer() != null) {
+				attempted++;
+			}
+		}
+		Map<String, Object> map = Map.of("marksGot",marksGot,"correctAnswer",correctAnswer,"attempted",attempted,"maxMarks",maxMark,"totalQuestion",questions.size());
+		return ResponseEntity.ok(map);
 	}
 
 }

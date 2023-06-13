@@ -1,1 +1,93 @@
-<p>welcome works!</p>
+<mat-card >
+  <mat-card-header>
+    <mat-card-title>
+      Thống kê lượt thi
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container text-center">
+        <div  class="card-body">
+          <div class="d-flex justify-content-between mt20">
+            <mat-form-field  appearance="outline">
+              <mat-label>Chọn năm</mat-label>
+              <mat-select (selectionChange)="onLoadYear($event)">
+                <mat-option [value]="'2023'">2023</mat-option>
+                <mat-option [value]="'2022'">2022</mat-option>
+                <mat-option [value]="'2021'">2021</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field  appearance="outline">
+              <mat-label>Chọn đề thi</mat-label>
+              <mat-select (selectionChange)="onLoadQuiz($event)">
+                <mat-option *ngFor="let quiz of listQuiz" [value]="quiz.qId">{{quiz.title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-button color="primary" (click)="download()">Tải xuống chi tiết lượt thi</button>
+
+          </div>
+
+          <div mat-card-title >
+            <h3 *ngIf="qid == 0">Tổng lượt thi tất cả các đề năm {{yearSelected}} <br>  <b >{{totalNumberOfTests}}</b></h3>
+            <h3 *ngIf="qid != 0">Tổng lượt thi đề {{quizName}} năm {{yearSelected}} <br>  <b >{{totalNumberOfTests}}</b></h3>
+          </div>
+          <div class="table-responsive">
+            <div>
+              <canvas baseChart class="chart"
+                      [data]="barChartData"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [type]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+
+              </canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="text-center">
+
+  </mat-card-actions>
+</mat-card>
+
+<mat-card class="mt20">
+  <mat-card-header>
+    <mat-card-title>
+      Thống kê user
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container text-center">
+        <div  class="card-body">
+
+          <div mat-card-title >
+            <h3 >Tổng số lượng tài khoản <br>  <b >{{totalUser}}</b></h3>
+          </div>
+          <div class="table-responsive">
+            <div>
+              <canvas baseChart class="chart"
+                      [data]="pieChartData"
+                      [type]="pieChartType"
+                      [options]="pieChartOptions"
+                      [plugins]="pieChartPlugins">
+              </canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="text-center">
+
+  </mat-card-actions>
+</mat-card>

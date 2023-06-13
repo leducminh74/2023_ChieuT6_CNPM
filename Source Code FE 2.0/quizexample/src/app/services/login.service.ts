@@ -62,4 +62,15 @@ export class LoginService {
     return user.authorities[0].authority;
   }
 
+  public getAllRole(){
+    let result = ''
+    let user = this.getUser();
+    if(this.isLoggedIn()){
+      for (let role of user.authorities) {
+        result += role.authority + ','
+      }
+    }
+    return result.substring(0,result.length - 1)
+  }
+
 }

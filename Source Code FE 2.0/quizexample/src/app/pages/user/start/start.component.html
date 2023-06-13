@@ -1,4 +1,4 @@
-<div class="bootstrap-wrapper" *ngIf="!isSubmit">
+<div class="bootstrap-wrapper" *ngIf="!isSubmit && questions.length > 0">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
@@ -16,7 +16,7 @@
       </div>
 
       <div class="col-md-8">
-        <ng-container  *ngIf="questions">
+        <ng-container  *ngIf="questions.length > 0">
           <h1 class="mt20 text-center">Đề thi <b>{{questions[0].quiz.title}}</b></h1>
         </ng-container>
         <mat-card *ngFor="let q of questions;let i = index" class="mt15">
@@ -99,7 +99,7 @@
 
 <!--show result-->
 
-<div class="bootstrap-wrapper mt20" *ngIf="isSubmit">
+<div class="bootstrap-wrapper mt20" *ngIf="isSubmit && !isShowAnswerCorrect">
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <mat-card>
@@ -114,8 +114,114 @@
         <mat-card-actions class="text-center">
           <button mat-raised-button color="accent" routerLink="/user-dashboard/0">Trang chủ</button>
           <button (click)="printPage()" mat-raised-button color="primary">In kết quả</button>
+          <button (click)="showAnswerCorrect()" class="ml0" mat-raised-button color="warn">Xem đáp án</button>
         </mat-card-actions>
       </mat-card>
+    </div>
+  </div>
+
+</div>
+
+
+<!--show correct answer-->
+<div class="bootstrap-wrapper" *ngIf="isSubmit && isShowAnswerCorrect">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+
+
+      </div>
+
+      <div class="col-md-8">
+        <ng-container  *ngIf="questions">
+          <h1 class="mt20 text-center">Đáp án đề thi <b>{{questions[0].quiz.title}}</b></h1>
+        </ng-container>
+        <mat-card *ngFor="let q of questions;let i = index" class="mt15">
+          <mat-card-content>
+            <p>
+              <b>Câu {{i + 1}}.  </b> <span [innerHTML]="q.content"></span>
+            </p>
+            <mat-divider></mat-divider>
+            <mat-radio-group
+              [(ngModel)]="q.givenAnswer"
+            >
+
+              <div class="row mt15">
+                  <div class="col-md-6">
+                    <mat-radio-button
+                      [color]="(q.givenAnswer == q.answer) ?'primary':'accent'"
+                      [value]="q.option1"
+                      (click)="$event.preventDefault()"
+                    >
+                      <p *ngIf="q.givenAnswer == q.option1 && q.givenAnswer == q.answer" class="option-answer">{{q.option1}} <mat-icon class="ml20" color="primary">check</mat-icon></p>
+                      <p *ngIf="q.givenAnswer == q.option1 && q.givenAnswer != q.answer" class="option-answer">{{q.option1}} <mat-icon class="ml20" color="accent">clear</mat-icon></p>
+                      <p *ngIf="q.givenAnswer != q.option1" class="option-answer">{{q.option1}}</p>
+                    </mat-radio-button>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-radio-button
+                      [color]="(q.givenAnswer == q.answer) ?'primary':'accent'"
+                      [value]="q.option2"
+                      (click)="$event.preventDefault()"
+                    >
+                      <p *ngIf="q.givenAnswer == q.option2 && q.givenAnswer == q.answer" class="option-answer">{{q.option2}} <mat-icon class="ml20" color="primary">check</mat-icon></p>
+                      <p *ngIf="q.givenAnswer == q.option2 && q.givenAnswer != q.answer" class="option-answer">{{q.option2}} <mat-icon class="ml20" color="accent">clear</mat-icon></p>
+                      <p *ngIf="q.givenAnswer != q.option2" class="option-answer">{{q.option2}}</p>
+
+                    </mat-radio-button>
+                  </div>
+
+              </div>
+              <div class="row mt15">
+                <div class="col-md-6">
+                  <mat-radio-button
+                    [color]="(q.givenAnswer == q.answer) ?'primary':'accent'"
+                    [value]="q.option3"
+                    [checked]="true"
+                    (click)="$event.preventDefault()"
+                  >
+                    <p *ngIf="q.givenAnswer == q.option3 && q.givenAnswer == q.answer" class="option-answer">{{q.option3}} <mat-icon class="ml20" color="primary">check</mat-icon></p>
+                    <p *ngIf="q.givenAnswer == q.option3 && q.givenAnswer != q.answer" class="option-answer">{{q.option3}} <mat-icon class="ml20" color="accent">clear</mat-icon></p>
+                    <p *ngIf="q.givenAnswer != q.option3" class="option-answer">{{q.option3}}</p>
+
+                  </mat-radio-button>
+                </div>
+                <div class="col-md-6">
+                  <mat-radio-button
+                    [color]="(q.givenAnswer == q.answer) ?'primary':'accent'"
+                    [value]="q.option4"
+                    (click)="$event.preventDefault()"
+                  >
+                    <p *ngIf="q.givenAnswer == q.option4 && q.givenAnswer == q.answer" class="option-answer">{{q.option4}} <mat-icon class="ml20" color="primary">check</mat-icon></p>
+                    <p *ngIf="q.givenAnswer == q.option4 && q.givenAnswer != q.answer" class="option-answer">{{q.option4}} <mat-icon class="ml20" color="accent">clear</mat-icon></p>
+                    <p *ngIf="q.givenAnswer != q.option4" class="option-answer">{{q.option4}}</p>
+                  </mat-radio-button>
+                </div>
+              </div>
+            </mat-radio-group>
+
+            <div class="mt20" *ngIf="q.givenAnswer != q.answer">
+              <mat-divider></mat-divider>
+              <p class="mt20">
+                <b>Đáp án: {{q.answer}}</b>
+              </p>
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+        <div class="container text-center mt20 mb20">
+          <button routerLink="/user-dashboard/0" mat-raised-button color="primary">Trang chủ</button>
+          <button (click)="startAgain()" class="ml10" mat-raised-button color="accent">Thi lại</button>
+          <button (click)="viewResult()" class="ml10" mat-raised-button color="warn">Xem kết quả</button>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+
+
+      </div>
+
     </div>
   </div>
 

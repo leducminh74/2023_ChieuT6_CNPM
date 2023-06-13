@@ -49,21 +49,19 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.generateToken(this.loginData).subscribe((data:any) =>{
-      console.log('success')
-      console.log(data)
       this.loginService.loginUser(data.token);
       this.loginService.getCurrentUser().subscribe((user:any) =>{
         this.loginService.setUser(user)
-        console.log(user)
-        if(this.loginService.getUserRole() == 'ADMIN'){
-          this.router.navigate(['admin'])
-          this.loginService.loginStatusSubject.next(true)
-        }else if(this.loginService.getUserRole() =='NORMAL'){
-          this.router.navigate(['user-dashboard/0'])
-          this.loginService.loginStatusSubject.next(true)
-        }else{
-          this.loginService.logout()
-        }
+          if(this.loginService.getUserRole() == 'ADMIN'){
+            this.router.navigate(['admin'])
+            this.loginService.loginStatusSubject.next(true)
+          }else if(this.loginService.getUserRole() =='NORMAL'){
+            this.router.navigate(['user-dashboard/0'])
+            this.loginService.loginStatusSubject.next(true)
+          }else{
+            this.loginService.logout()
+          }
+
       })
     },error => {
       console.log(error)

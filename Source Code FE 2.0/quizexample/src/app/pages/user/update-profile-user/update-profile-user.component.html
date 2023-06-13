@@ -1,0 +1,65 @@
+<mat-card>
+  <h1>Cập nhật thông tin cá nhân</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <form *ngIf="user" (ngSubmit)="updateUser()">
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Họ</mat-label>
+            <input
+              [(ngModel)]="user.firstName"
+              type="text"
+              name="firstName"
+              placeholder="Enter here.."
+              matInput
+              required
+            >
+          </mat-form-field>
+
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Tên</mat-label>
+            <input
+              [(ngModel)]="user.lastName"
+              type="text"
+              name="lastName"
+              placeholder="Enter here.."
+              matInput
+              required
+            >
+          </mat-form-field>
+
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Số điện thoại</mat-label>
+            <input
+              [(ngModel)]="user.phone"
+              type="text"
+              name="phone"
+              placeholder="Enter here.."
+              matInput
+              required
+            >
+          </mat-form-field>
+
+          <mat-form-field class="w100" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="user.email"
+              type="email"
+              name="email"
+              placeholder="Enter here.."
+              matInput
+              required
+            >
+          </mat-form-field>
+
+
+          <div class="container text-center">
+            <button type="submit" mat-raised-button color="primary">Lưu</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</mat-card>
+

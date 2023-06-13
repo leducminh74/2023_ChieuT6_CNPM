@@ -1,0 +1,47 @@
+<mat-card *ngIf="user">
+  <h1>Thông tin cá nhân</h1>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container text-center">
+        <img style="max-width: 150px" src="assets/image/default-profile.png" alt="default profile">
+        <h1 style="margin-top: 20px">{{user.firstName}} {{user.lastName}}</h1>
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <table class="table text-center">
+              <tr>
+                <td>Tài khoản</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Mã tài khoản</td>
+                <td>{{user.id}}</td>
+              </tr>
+              <tr>
+                <td>Số điện thoại</td>
+                <td>{{user.phone}}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
+                <td>Role</td>
+                <td>{{toString(user.authorities)}}</td>
+              </tr>
+              <tr>
+                <td>Trạng thái</td>
+                <td>{{user.enable?'ACTIVE':'NOTACTIVE'}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="text-center">
+    <button routerLink="/user-dashboard/profile/update-profile" mat-raised-button color="primary">Cập nhật</button>
+    <button mat-raised-button color="accent">?</button>
+  </mat-card-actions>
+</mat-card>

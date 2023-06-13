@@ -43,6 +43,17 @@ import { InstructionsComponent } from './pages/user/instructions/instructions.co
 import { StartComponent } from './pages/user/start/start.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from "ngx-ui-loader";
+import { ProfileUserComponent } from './pages/user/profile-user/profile-user.component';
+import { UpdateProfileUserComponent } from './pages/user/update-profile-user/update-profile-user.component';
+import { UpdateProfileAdminComponent } from './pages/admin/update-profile-admin/update-profile-admin.component';
+import {MatRadioModule} from "@angular/material/radio";
+import { TestHistoryComponent } from './pages/user/test-history/test-history.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import { TestRankingComponent } from './pages/user/test-ranking/test-ranking.component';
+import { NgChartsModule } from 'ng2-charts';
+import { UserManagementComponent } from './pages/admin/user-management/user-management.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -69,7 +80,13 @@ import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from "ngx-ui-loader";
     UserSidebar,
     LoadQuizComponent,
     InstructionsComponent,
-    StartComponent
+    StartComponent,
+    ProfileUserComponent,
+    UpdateProfileUserComponent,
+    UpdateProfileAdminComponent,
+    TestHistoryComponent,
+    TestRankingComponent,
+    UserManagementComponent
   ],
     imports: [
         BrowserModule,
@@ -92,8 +109,13 @@ import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from "ngx-ui-loader";
         MatProgressSpinnerModule,
         NgxUiLoaderModule,
         NgxUiLoaderHttpModule.forRoot({
-          showForeground:true
-        })
+            showForeground: true
+        }),
+        MatRadioModule,
+        MatPaginatorModule,
+        MatSortModule,
+        NgChartsModule,
+        MatMenuModule
     ],
   providers: [[{provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true}]],
   bootstrap: [AppComponent]

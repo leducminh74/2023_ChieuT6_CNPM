@@ -34,3 +34,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mb20{
   margin-bottom: 20px;
 }
+
+.ml0{
+  margin-left: 0 !important;
+}
+
+.option-answer{
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+}
+
+.option-answer mat-icon{
+  line-height: 20px;
+}
+
+.select-search{
+  display: flex;
+  justify-content: space-between;
+}
+
+.design-ranking{
+  display: grid;
+  grid-template-columns: 1fr repeat(3, auto) 0.9fr;
+  grid-column-gap: 5px;
+  justify-items: center;
+  margin: 0!important;
+}
+
+.rank-number{
+  grid-column-start: 2;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.justify-content-between{
+  justify-content: space-between;
+}

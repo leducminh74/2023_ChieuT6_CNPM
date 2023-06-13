@@ -1,5 +1,9 @@
 <mat-card *ngIf="user">
-  <h1>Thông tin cá nhân</h1>
+  <mat-card-header>
+    <mat-card-title>
+      Thông tin cá nhân
+    </mat-card-title>
+  </mat-card-header>
   <mat-card-content>
     <div class="bootstrap-wrapper">
       <div class="container text-center">
@@ -21,8 +25,12 @@
                 <td>{{user.phone}}</td>
               </tr>
               <tr>
+                <td>Email</td>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
                 <td>Role</td>
-                <td>{{user.authorities[0].authority}}</td>
+                <td>{{toString(user.authorities)}}</td>
               </tr>
               <tr>
                 <td>Trạng thái</td>
@@ -37,7 +45,7 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="text-center">
-    <button mat-raised-button color="primary">Cập nhật</button>
+    <button routerLink="/admin/profile/update" mat-raised-button color="primary">Cập nhật</button>
     <button mat-raised-button color="accent">?</button>
   </mat-card-actions>
 </mat-card>

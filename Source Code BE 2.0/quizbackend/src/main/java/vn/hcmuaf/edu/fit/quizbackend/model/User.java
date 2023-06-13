@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,10 +19,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +36,11 @@ public class User implements UserDetails{
 	private String phone;
 	private boolean enable = true;
 	private String profile;
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private Set<Test> tests;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
@@ -54,8 +60,7 @@ public class User implements UserDetails{
 		this.enable = enable;
 		this.profile = profile;
 	}
-	
-	
+
 
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
@@ -140,7 +145,7 @@ public class User implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<Authority> set = new HashSet<>();
-		this.userRoles.forEach(userRole ->{
+		this.userRoles.forEach(userRole -> {
 			set.add(new Authority(userRole.getRole().getRoleName()));
 		});
 		return set;
@@ -148,25 +153,24 @@ public class User implements UserDetails{
 
 	@Override
 	public boolean isAccountNonExpired() {
-	
+
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		
+
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		
 		return enable;
 	}
 

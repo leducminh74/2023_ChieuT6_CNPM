@@ -1,5 +1,9 @@
 <mat-card>
-  <h1 >Tất cả các môn thi</h1>
+  <mat-card-header>
+    <mat-card-title>
+      Tất cả các môn thi
+    </mat-card-title>
+  </mat-card-header>
   <mat-list *ngIf="categories.length > 0">
     <mat-list-item *ngFor="let c of categories">
       <mat-icon mat-list-icon>category</mat-icon>
