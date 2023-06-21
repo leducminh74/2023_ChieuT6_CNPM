@@ -50,7 +50,7 @@ public class QuizController {
 
 	@GetMapping("/{qid}")
 	public Quiz quiz(@PathVariable("qid") Long qid) {
-		return this.quizService.getQuiz(qid);
+		return this.quizService.getQuiz(qid).get();
 	}
 
 	@DeleteMapping("/{qid}")

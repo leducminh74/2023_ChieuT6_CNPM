@@ -1,7 +1,7 @@
 package vn.hcmuaf.edu.fit.quizbackend.service.impl;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-
+	
 	@Override
 	public Category addCategory(Category category) {
 		return this.categoryRepository.save(category);
@@ -30,21 +30,18 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Set<Category> getCategories() {
-
 		return new HashSet<>(this.categoryRepository.findAll());
 	}
 
 	@Override
-	public Category getCategory(Long categoryId) {
+	public Optional<Category> getCategory(Long categoryId) {
 		
-		return this.categoryRepository.findById(categoryId).get();
+		return this.categoryRepository.findById(categoryId);
 	}
 
 	@Override
 	public void deleteCategory(Long categoryId) {
-		Category category = new Category();
-		category.setId(categoryId);
-		this.categoryRepository.delete(category);
+		this.categoryRepository.deleteById(categoryId);
 
 	}
 

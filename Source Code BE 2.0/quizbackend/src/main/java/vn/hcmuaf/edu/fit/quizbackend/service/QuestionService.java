@@ -1,5 +1,6 @@
 package vn.hcmuaf.edu.fit.quizbackend.service;
 
+import java.util.Optional;
 import java.util.Set;
 
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Question;
@@ -13,7 +14,7 @@ public interface QuestionService {
 
 	public Set<Question> getQuestions();
 
-	public Question getQuestion(Long questionId);
+	public Optional<Question> getQuestion(Long questionId);
 
 	public Set<Question> getQuestionsOfQuiz(Quiz quiz);
 	

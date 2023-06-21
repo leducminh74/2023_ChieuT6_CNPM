@@ -27,7 +27,6 @@ public class Question {
 	private String option3;
 	private String option4;
 
-	
 	private String answer;
 
 	@Transient
@@ -38,6 +37,19 @@ public class Question {
 
 	public Question() {
 
+	}
+
+	public Question(String content, String image, String option1, String option2, String option3, String option4,
+			String answer, String givenAnswer, Quiz quiz) {
+		this.content = content;
+		this.image = image;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.answer = answer;
+		this.givenAnswer = givenAnswer;
+		this.quiz = quiz;
 	}
 
 	public Long getQuesId() {
@@ -96,12 +108,10 @@ public class Question {
 		this.option4 = option4;
 	}
 
-	
 	public String getAnswer() {
 		return answer;
 	}
 
-	
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}

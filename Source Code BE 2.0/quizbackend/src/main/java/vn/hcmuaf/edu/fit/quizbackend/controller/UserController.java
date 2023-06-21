@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.hcmuaf.edu.fit.quizbackend.helper.UpdateUserRequest;
 import vn.hcmuaf.edu.fit.quizbackend.helper.UserFoundException;
-import vn.hcmuaf.edu.fit.quizbackend.helper.UserNotFoundException;
 import vn.hcmuaf.edu.fit.quizbackend.model.Role;
 import vn.hcmuaf.edu.fit.quizbackend.model.User;
 import vn.hcmuaf.edu.fit.quizbackend.model.UserRole;
@@ -46,7 +48,10 @@ public class UserController {
 
 //	creating user
 	@PostMapping("/")
-	public User createUser(@RequestBody User user) throws Exception {
+	public User createUser(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception {
+		if (bindingResult.hasErrors()) {
+			throw new Exception("Invalid value");
+		}
 		user.setProfile("default.png");
 
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -65,8 +70,11 @@ public class UserController {
 
 //	update user
 	@PutMapping("/{id}")
-	public User updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest userRequest) throws Exception {
-		User user = userService.getUserById(id);
+	public User updateUser(@PathVariable Long id, @RequestBody @Valid UpdateUserRequest userRequest,BindingResult bindingResult) throws Exception {
+		if(bindingResult.hasErrors()) {
+			throw new Exception("Invalid value");
+		}
+		User user = userService.getUserById(id).get();
 		user.setEmail(userRequest.getEmail());
 		user.setFirstName(userRequest.getFirstName());
 		user.setLastName(userRequest.getLastName());

@@ -1,6 +1,7 @@
 package vn.hcmuaf.edu.fit.quizbackend.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import vn.hcmuaf.edu.fit.quizbackend.model.exam.Category;
@@ -14,14 +15,14 @@ public interface QuizService {
 
 	public Set<Quiz> getQuizzes();
 
-	public Quiz getQuiz(Long quizId);
+	public Optional<Quiz> getQuiz(Long quizId);
 
 	public void deleteQuiz(Long quizId);
 
 	public List<Quiz> getQuizzesOfCategory(Category category);
-	
+
 	public List<Quiz> getActiveQuizzes();
-	
+
 	public List<Quiz> getActiveQuizzesOfCategory(Category c);
 
 }

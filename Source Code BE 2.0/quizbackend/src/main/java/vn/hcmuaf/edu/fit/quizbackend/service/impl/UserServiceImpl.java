@@ -2,12 +2,12 @@ package vn.hcmuaf.edu.fit.quizbackend.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.hcmuaf.edu.fit.quizbackend.helper.UserFoundException;
 import vn.hcmuaf.edu.fit.quizbackend.model.Role;
 import vn.hcmuaf.edu.fit.quizbackend.model.User;
 import vn.hcmuaf.edu.fit.quizbackend.model.UserRole;
@@ -23,8 +23,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	
+
 //	get all user
 	@Override
 	public List<User> getAllUser() {
@@ -35,9 +34,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 		User local = this.userRepository.findByUsername(user.getUsername());
-		if (local != null) {
+		User localEmail = this.userRepository.findByEmail(user.getEmail());
+		if (local != null || localEmail != null) {
 			System.out.println("User is already there !!");
-			throw new UserFoundException();
+			throw new Exception("User is already there !!");
 		} else {
 			for (UserRole userRole : userRoles) {
 				roleRepository.save(userRole.getRole());
@@ -51,15 +51,13 @@ public class UserServiceImpl implements UserService {
 //	getting user by username
 	@Override
 	public User getUser(String username) {
-
 		return this.userRepository.findByUsername(username);
 	}
 
 //	getting user by id
 	@Override
-	public User getUserById(Long id) {
-
-		return this.userRepository.findById(id).get();
+	public Optional<User> getUserById(Long id) {
+		return this.userRepository.findById(id);
 	}
 
 //	delete user by id
@@ -101,32 +99,42 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User disableAccount(Long id) {
-		User user = getUserById(id);
-		user.setEnable(false);
-		return saveUser(user);
+		Optional<User> user = getUserById(id);
+		if (user.isPresent()) {
+			user.get().setEnable(false);
+			return saveUser(user.get());
+		}
+		return null;
+
 	}
 
 	@Override
 	public User enableAccount(Long id) {
-		User user = getUserById(id);
-		user.setEnable(true);
-		return saveUser(user);
+		Optional<User> user = getUserById(id);
+		if (user.isPresent()) {
+			user.get().setEnable(true);
+			return saveUser(user.get());
+		}
+		return null;
 	}
 
 	@Override
 	public User addRoleAdminToUser(Long id) {
-		User user = getUserById(id);
-		Set<UserRole> roles = user.getUserRoles();
-		UserRole userRole = new UserRole();
-		Role admin = roleRepository.findById((long) 46).get();
-		if (checkExist(roles, admin) == null) {
-			userRole.setRole(admin);
-			userRole.setUser(user);
-			roles.add(userRole);
-			user.getUserRoles().addAll(roles);
+		Optional<User> user = getUserById(id);
+		if (user.isPresent()) {
+			Set<UserRole> roles = user.get().getUserRoles();
+			UserRole userRole = new UserRole();
+			Role admin = roleRepository.findById((long) 46).get();
+			if (checkExist(roles, admin) == null) {
+				userRole.setRole(admin);
+				userRole.setUser(user.get());
+				roles.add(userRole);
+				user.get().getUserRoles().addAll(roles);
+			}
+			return saveUser(user.get());
 		}
-		return saveUser(user);
 
+		return null;
 	}
 
 	private UserRole checkExist(Set<UserRole> roles, Role role) {

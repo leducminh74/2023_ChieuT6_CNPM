@@ -39,7 +39,7 @@ public class ManagementController {
 		if (qid == 0) {
 			list = testService.getNumberOfTestOfYear(year, null);
 		} else {
-			Quiz quiz = quizService.getQuiz(qid);
+			Quiz quiz = quizService.getQuiz(qid).get();
 			list = testService.getNumberOfTestOfYear(year, quiz);
 		}
 		return ResponseEntity.ok(list);
@@ -61,7 +61,7 @@ public class ManagementController {
 		if (qid == 0) {
 			total = testService.getNumberOfTest(year, null);
 		} else {
-			Quiz quiz = quizService.getQuiz(qid);
+			Quiz quiz = quizService.getQuiz(qid).get();
 			total = testService.getNumberOfTest(year, quiz);
 		}
 

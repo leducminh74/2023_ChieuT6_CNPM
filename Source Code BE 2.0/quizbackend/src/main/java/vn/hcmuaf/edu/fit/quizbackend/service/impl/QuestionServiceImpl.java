@@ -1,6 +1,7 @@
 package vn.hcmuaf.edu.fit.quizbackend.service.impl;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public Question getQuestion(Long questionId) {
-		return this.questionRepository.findById(questionId).get();
+	public Optional<Question> getQuestion(Long questionId) {
+		return this.questionRepository.findById(questionId);
 	}
 
 	@Override

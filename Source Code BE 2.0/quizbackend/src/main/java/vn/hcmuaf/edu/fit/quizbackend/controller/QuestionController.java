@@ -53,18 +53,18 @@ public class QuestionController {
 //
 //		return ResponseEntity.ok(questionsOfQuiz);
 
-		Quiz quiz = this.quizService.getQuiz(qid);
+		Quiz quiz = this.quizService.getQuiz(qid).get();
 		Set<Question> questions = quiz.getQuestions();
 		List<Question> list = new ArrayList(questions);
 		if (list.size() > Integer.parseInt(quiz.getNumberOfQuestions())) {
 			list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions() + 1));
 
 		}
-		
+
 		Collections.shuffle(list);
 		return ResponseEntity.ok(list);
 	}
-	
+
 	@GetMapping("/quiz/all/{qid}")
 	public ResponseEntity<?> getAllQuestionOfQuizAdmin(@PathVariable("qid") Long qid) {
 		Quiz quiz = new Quiz();
@@ -72,13 +72,13 @@ public class QuestionController {
 		Set<Question> questionsOfQuiz = this.questionService.getQuestionsOfQuiz(quiz);
 
 		return ResponseEntity.ok(questionsOfQuiz);
-	
+
 	}
 
 	@GetMapping("/{quesId}")
 	public Question get(@PathVariable("quesId") Long quesId) {
 
-		return this.questionService.getQuestion(quesId);
+		return this.questionService.getQuestion(quesId).get();
 	}
 
 	@DeleteMapping("/{quesId}")
@@ -87,32 +87,33 @@ public class QuestionController {
 
 	}
 
-	
 	@GetMapping("/")
-	public ResponseEntity<?> getAllQuestion(){
+	public ResponseEntity<?> getAllQuestion() {
 		return ResponseEntity.ok(this.questionService.getQuestions());
 	}
-	
+
 	@PostMapping("/eval-quiz")
-	public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions){
+	public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions) {
 		double marksGot = 0;
 		int correctAnswer = 0;
-		int attempted = 0;	
+		int attempted = 0;
 		double maxMark = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks());
 		for (Question question : questions) {
-			
+
 			Question question2 = this.questionService.get(question.getQuesId());
-			if(question2.getAnswer().equals(question.getGivenAnswer())) {
+			if (question2.getAnswer().equals(question.getGivenAnswer())) {
 				correctAnswer++;
-				
-				double marksSingle = Math.ceil(Double.parseDouble(questions.get(0).getQuiz().getMaxMarks())/(questions.size()));
+
+				double marksSingle = Math
+						.ceil(Double.parseDouble(questions.get(0).getQuiz().getMaxMarks()) / (questions.size()));
 				marksGot += marksSingle;
 			}
-			if(question.getGivenAnswer() != null) {
+			if (question.getGivenAnswer() != null) {
 				attempted++;
 			}
 		}
-		Map<String, Object> map = Map.of("marksGot",marksGot,"correctAnswer",correctAnswer,"attempted",attempted,"maxMarks",maxMark,"totalQuestion",questions.size());
+		Map<String, Object> map = Map.of("marksGot", marksGot, "correctAnswer", correctAnswer, "attempted", attempted,
+				"maxMarks", maxMark, "totalQuestion", questions.size());
 		return ResponseEntity.ok(map);
 	}
 }

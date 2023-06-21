@@ -33,15 +33,19 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public Test endTest(Test test) {
-		Test t = testRepository.findById(test.getId()).get();
-		t.setNumberOfQuestionAttempted(test.getNumberOfQuestionAttempted());
-		t.setNumberOfQuestionCorrect(test.getNumberOfQuestionCorrect());
-		t.setMarks(test.getMarks());
-		t.setEnd(true);
-		Test t1 = testRepository.save(t);
-		t1.setExamTime(
-				Duration.between(t.getTimeStart().toLocalDateTime(), t.getTimeEnd().toLocalDateTime()).getSeconds());
-		return testRepository.save(t1);
+		if (test != null) {
+			Test t = testRepository.findById(test.getId()).get();
+			t.setNumberOfQuestionAttempted(test.getNumberOfQuestionAttempted());
+			t.setNumberOfQuestionCorrect(test.getNumberOfQuestionCorrect());
+			t.setMarks(test.getMarks());
+			t.setEnd(true);
+			Test t1 = testRepository.save(t);
+			t1.setExamTime(Duration.between(t.getTimeStart().toLocalDateTime(), t.getTimeEnd().toLocalDateTime())
+					.getSeconds());
+			return testRepository.save(t1);
+		}
+		return null;
+
 	}
 
 	@Override

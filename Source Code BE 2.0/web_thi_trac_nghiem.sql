@@ -11,7 +11,7 @@
  Target Server Version : 100406
  File Encoding         : 65001
 
- Date: 13/06/2023 09:52:46
+ Date: 21/06/2023 15:25:59
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `category`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of category
@@ -35,6 +35,7 @@ INSERT INTO `category` VALUES (1, 'Nội dung phần thi toán', 'Toán');
 INSERT INTO `category` VALUES (2, 'Nội dung phần thi Vật lý', 'Vật lý');
 INSERT INTO `category` VALUES (3, 'Nội dung phần thi Hóa học test', 'Hóa học');
 INSERT INTO `category` VALUES (7, 'Danh sách đề thi môn hóa', 'Văn hóa');
+INSERT INTO `category` VALUES (8, 'Công nghệ  Nhật Bản đến từ Châu Âu', 'Công nghệ');
 
 -- ----------------------------
 -- Table structure for question
@@ -82,7 +83,7 @@ CREATE TABLE `quiz`  (
   PRIMARY KEY (`q_id`) USING BTREE,
   INDEX `FK82x9fxd5tsbb3i1ewrp3cr8xa`(`category_id`) USING BTREE,
   CONSTRAINT `FK82x9fxd5tsbb3i1ewrp3cr8xa` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of quiz
@@ -92,7 +93,7 @@ INSERT INTO `quiz` VALUES (6, b'1', 'Tính đóng gói cho phép che giấu thô
 INSERT INTO `quiz` VALUES (7, b'1', 'Hóa cơ bản giúp ôn lại kiến thức', '200', '201', 'Hóa cơ bản dễ nè', 7);
 INSERT INTO `quiz` VALUES (10, b'1', 'Sinh cơ bản giúp ôn lại kiến thức', '200', '20', 'Sinh cơ bản', 3);
 INSERT INTO `quiz` VALUES (11, b'0', 'Sinh cơ bản giúp ôn lại kiến thức', '200', '20', 'Sinh cơ bản', 3);
-INSERT INTO `quiz` VALUES (13, b'1', 'Ôn tập vật lý ', '200', '10', 'Lý v1', 2);
+INSERT INTO `quiz` VALUES (13, b'1', 'Ôn tập vật lý', '200', '10', 'Lý v1', 2);
 
 -- ----------------------------
 -- Table structure for roles
@@ -109,23 +110,6 @@ CREATE TABLE `roles`  (
 -- ----------------------------
 INSERT INTO `roles` VALUES (45, 'NORMAL');
 INSERT INTO `roles` VALUES (46, 'ADMIN');
-
--- ----------------------------
--- Table structure for status
--- ----------------------------
-DROP TABLE IF EXISTS `status`;
-CREATE TABLE `status`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of status
--- ----------------------------
-INSERT INTO `status` VALUES (0, 'Not Activated');
-INSERT INTO `status` VALUES (1, 'Activated');
-INSERT INTO `status` VALUES (2, 'Disable');
 
 -- ----------------------------
 -- Table structure for test
@@ -148,7 +132,7 @@ CREATE TABLE `test`  (
   INDEX `FKdug99c3uufjv7wedmlt9euews`(`user_id`) USING BTREE,
   CONSTRAINT `FKdug99c3uufjv7wedmlt9euews` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKlyijermk8u4365q8bfcu75n6u` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`q_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of test
@@ -161,6 +145,8 @@ INSERT INTO `test` VALUES (32, 100, 2, 1, 0, '2023-06-09 06:40:47', '2023-06-09 
 INSERT INTO `test` VALUES (33, 1000, 2, 2, 0, '2023-06-09 06:40:47', '2023-06-09 06:39:22', 6, 6, 85, b'1');
 INSERT INTO `test` VALUES (34, 200, 2, 2, 0, '2023-06-09 06:40:47', '2023-06-09 06:39:22', 6, 7, 0, b'1');
 INSERT INTO `test` VALUES (35, 1000, 10, 10, 0, '2023-06-09 06:40:47', '2023-06-09 06:39:22', 6, 7, 100, b'1');
+INSERT INTO `test` VALUES (36, 0, 2, 0, 0, '2023-06-21 07:43:58', '2023-06-21 07:43:22', 6, 7, 36, b'1');
+INSERT INTO `test` VALUES (37, 0, 0, 0, 0, '2023-06-21 07:44:24', '2023-06-21 07:44:24', 6, 7, NULL, b'0');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -175,7 +161,7 @@ CREATE TABLE `user_role`  (
   INDEX `FKj345gk1bovqvfame88rcx7yyx`(`user_id`) USING BTREE,
   CONSTRAINT `FK7u21823ktfhu9bmx2350x6n8s` FOREIGN KEY (`role_role_id`) REFERENCES `roles` (`role_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKj345gk1bovqvfame88rcx7yyx` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role
@@ -190,6 +176,7 @@ INSERT INTO `user_role` VALUES (7, 45, 7);
 INSERT INTO `user_role` VALUES (14, 46, 7);
 INSERT INTO `user_role` VALUES (15, 46, 1);
 INSERT INTO `user_role` VALUES (16, 46, 2);
+INSERT INTO `user_role` VALUES (17, 46, 5);
 
 -- ----------------------------
 -- Table structure for users
@@ -205,21 +192,18 @@ CREATE TABLE `users`  (
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `profile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `status` bigint NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FK7hkf2djgd7pttv20wfqxl80fc`(`status`) USING BTREE,
-  CONSTRAINT `FK7hkf2djgd7pttv20wfqxl80fc` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'ducminh123', b'0', NULL, NULL, 'test', NULL, 'minh', 'test.jpg', 1);
-INSERT INTO `users` VALUES (2, '123', b'1', NULL, NULL, '123', '1322', '123', NULL, 1);
-INSERT INTO `users` VALUES (3, '1234@gmail.com', b'1', 'Le', 'Duc Minh', '123', '123123', 'minh1234', NULL, 1);
-INSERT INTO `users` VALUES (4, '23', b'1', '123', '123', '123', '3', '1234', NULL, 1);
-INSERT INTO `users` VALUES (5, 'ducminh0573@gmail.com', b'1', 'Le', 'Duc Minh', '$2a$10$XaE.QbVp/xff68i40M0owu8XrEQhak2BGBRUrmyB2wKyz1cDOhmdy', '346082073', 'minh123456', 'default.png', 1);
-INSERT INTO `users` VALUES (6, '19130133@st.hcmuaf.edu.vn', b'1', 'Le', 'Duc Minh', '$2a$10$cj8jdRAx0mv8VERO/kmUee2KVQOGs7Tk3IzUzD5.zD44spkEtodx6', '0346082073', 'leb', 'default.png', 1);
-INSERT INTO `users` VALUES (7, 'ducminh0573@gmail.com', b'1', 'Le', 'Duc Minh', '$2a$10$0bYogLqrxoX61z6kTT4c8uBCoOMKK4OU44dVOm/xP9n22iQfummLS', '0346082073', 'user', 'default.png', 1);
+INSERT INTO `users` VALUES (1, 'ducminh123', b'1', 'Nguyen', 'Nam', 'test', '01234567889', 'minh', 'test.jpg');
+INSERT INTO `users` VALUES (2, '123@gmail.com', b'1', 'Tran ', 'Van', '123', '1322', '123', 'default.png');
+INSERT INTO `users` VALUES (3, '1234@gmail.com', b'1', 'Le', 'Duc Minh', '123', '123123', 'minh1234', 'default.png');
+INSERT INTO `users` VALUES (4, '23@gmail.com', b'1', '123', '123', '123', '3', '1234', 'default.png');
+INSERT INTO `users` VALUES (5, 'ducminh0573@gmail.com', b'1', 'Le', 'Duc Minh', '$2a$10$XaE.QbVp/xff68i40M0owu8XrEQhak2BGBRUrmyB2wKyz1cDOhmdy', '346082073', 'minh123456', 'default.png');
+INSERT INTO `users` VALUES (6, '19130133@st.hcmuaf.edu.vn', b'1', 'Le', 'Duc Minh', '$2a$10$cj8jdRAx0mv8VERO/kmUee2KVQOGs7Tk3IzUzD5.zD44spkEtodx6', '0346082073', 'leb', 'default.png');
+INSERT INTO `users` VALUES (7, 'ducminh0573@gmail.com', b'1', 'Lê', 'Đức Minh', '$2a$10$0bYogLqrxoX61z6kTT4c8uBCoOMKK4OU44dVOm/xP9n22iQfummLS', '0346082073', 'user', 'default.png');
 
 SET FOREIGN_KEY_CHECKS = 1;

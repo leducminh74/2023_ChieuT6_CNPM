@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,11 +32,23 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotEmpty(message = "Username là bắt buộc")
 	private String username;
+	
+	@NotEmpty(message = "Password là bắt buộc")
 	private String password;
+	
+	@NotEmpty(message = "firstName là bắt buộc")
 	private String firstName;
+	
+	@NotEmpty(message = "lastName là bắt buộc")
 	private String lastName;
+	
+	@Email(message = "Email không hợp lệ")
 	private String email;
+	
+	@NotEmpty(message = "phone là bắt buộc")
 	private String phone;
 	private boolean enable = true;
 	private String profile;

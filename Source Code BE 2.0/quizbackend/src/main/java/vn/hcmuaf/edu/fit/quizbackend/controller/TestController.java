@@ -38,7 +38,7 @@ public class TestController {
 //	get list test order by exam time
 	@GetMapping("/{qid}")
 	public ResponseEntity<List<Test>> getTestByQuizOrderByMarks(@PathVariable Long qid) {
-		Quiz quiz = quizService.getQuiz(qid);
+		Quiz quiz = quizService.getQuiz(qid).get();
 		List<Test> list = testService.getTestByQuizOrderByMarks(quiz);
 		return ResponseEntity.ok(list);
 	}
@@ -47,7 +47,7 @@ public class TestController {
 //	get list test by user
 	@GetMapping("/")
 	public ResponseEntity<List<Test>> getListTestByUser(@RequestParam Long userId) {
-		User user = userService.getUserById(userId);
+		User user = userService.getUserById(userId).get();
 		List<Test> list = testService.getTestByUser(user);
 		return ResponseEntity.ok(list);
 	}
