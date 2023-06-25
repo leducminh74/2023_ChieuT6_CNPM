@@ -3,6 +3,7 @@ import {CategoryService} from "../../../services/category.service";
 import Swal from "sweetalert2";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {QuizService} from "../../../services/quiz.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-quiz',
@@ -23,7 +24,7 @@ export class AddQuizComponent implements OnInit {
       id:''
     }
   }
-  constructor(private categoryService:CategoryService,private snack:MatSnackBar,private quizService:QuizService) { }
+  constructor(private categoryService:CategoryService,private snack:MatSnackBar,private quizService:QuizService,private router:Router) { }
 
   ngOnInit(): void {
     this.categoryService.categories().subscribe((data:any) =>{
@@ -75,6 +76,7 @@ export class AddQuizComponent implements OnInit {
           id:''
         }
       }
+      this.router.navigate(['/admin/quizzes'])
     },error => {
       console.log(error)
       Swal.fire('Error!!','Xảy ra lỗi khi thêm đè thi','error')

@@ -4,6 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import Swal from 'sweetalert2'
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
+import {PatternValidator} from "@angular/forms";
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -40,6 +41,8 @@ export class SignupComponent implements OnInit {
   }
 
   formSubmit(){
+    const emailFormat: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
     console.log(this.user)
     if(this.user.username.trim() == '' || this.user.username == null){
       this.snack.open("Vui lòng nhập tài khoản!!",'ok',{
@@ -66,6 +69,11 @@ export class SignupComponent implements OnInit {
         duration:3000
       })
       return;
+    }else if(!emailFormat.test(this.user.email.trim())){
+      this.snack.open("Vui lòng nhập đúng định dạng email!!",'ok',{
+        duration:3000
+      })
+      return;
     }else if(this.user.phone.length == 0 || this.user.phone == null){
       this.snack.open("Vui lòng nhập số điện thoại!!",'ok',{
         duration:3000
@@ -80,7 +88,7 @@ export class SignupComponent implements OnInit {
 
       },(error) => {
         console.log(error)
-        Swal.fire('Error','Username is already exist','error')
+        Swal.fire('Error','Tài khoản hoặc email đã tồn tại. Vui lòng thử lại!!','error')
 
       })
     }
