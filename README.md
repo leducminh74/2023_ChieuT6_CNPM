@@ -16,5 +16,5 @@ Thêm "spring.datasource.driver-class-name=com.mysql.jdbc.Driver" vào file appl
 <br>
 Ở Webstorm run project -> vào trình duyệt gõ đường dẫn http://localhost:4200 
 <br>
-<h2><b>Nếu lỗi liên hệ sóp để xem giải quyết!!!</b></h2>
+<h2><b>Nếu lỗi liên hệ sóp để giải quyết!!!</b></h2>
 
